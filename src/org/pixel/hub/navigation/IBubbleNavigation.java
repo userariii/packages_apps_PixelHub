@@ -1,7 +1,7 @@
-package org.pixelextended.snowhouse.navigation;
+package org.pixel.hub.navigation;
 
 import android.graphics.Typeface;
-import org.pixelextended.snowhouse.navigation.BubbleNavigationChangeListener;
+import org.pixel.hub.navigation.BubbleNavigationChangeListener;
 
 @SuppressWarnings("unused")
 public interface IBubbleNavigation {

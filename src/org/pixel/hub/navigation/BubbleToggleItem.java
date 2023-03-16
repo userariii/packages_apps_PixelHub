@@ -1,4 +1,4 @@
-package org.pixelextended.snowhouse.navigation;
+package org.pixel.hub.navigation;
 
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;

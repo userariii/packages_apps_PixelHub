@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package org.pixelextended.snowhouse;
+package org.pixel.hub;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -53,18 +53,19 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import github.com.st235.lib_expandablebottombar.ExpandableBottomBar;
 
-import org.pixelextended.snowhouse.categories.Lockscreen;
-import org.pixelextended.snowhouse.categories.StatusBar;
-import org.pixelextended.snowhouse.categories.System;
-import org.pixelextended.snowhouse.categories.Hardware;
+import org.pixel.hub.categories.Lockscreen;
+import org.pixel.hub.categories.NotificationsPanel;
+import org.pixel.hub.categories.StatusBar;
+import org.pixel.hub.categories.System;
+import org.pixel.hub.categories.Themes;
 
-import org.pixelextended.snowhouse.navigation.BubbleNavigationConstraintView;
-import org.pixelextended.snowhouse.navigation.BubbleNavigationChangeListener;
+import org.pixel.hub.navigation.BubbleNavigationConstraintView;
+import org.pixel.hub.navigation.BubbleNavigationChangeListener;
 
-public class SnowHouse extends SettingsPreferenceFragment implements   
-       Preference.OnPreferenceChangeListener {
+public class PixelHub extends SettingsPreferenceFragment implements
+        Preference.OnPreferenceChangeListener {
 
-    private static final int MENU_HELP  = 0;
+    private static final int MENU_HELP = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -73,7 +74,8 @@ public class SnowHouse extends SettingsPreferenceFragment implements
 
         View view = inflater.inflate(R.layout.layout_extensions, container, false);
 
-        BubbleNavigationConstraintView bubbleNavigationConstraintView =  (BubbleNavigationConstraintView) view.findViewById(R.id.floating_top_bar_navigation);
+        BubbleNavigationConstraintView bubbleNavigationConstraintView = (BubbleNavigationConstraintView) view
+                .findViewById(R.id.floating_top_bar_navigation);
         ViewPager viewPager = view.findViewById(R.id.viewpager);
         PagerAdapter mPagerAdapter = new PagerAdapter(getFragmentManager());
         viewPager.setAdapter(mPagerAdapter);
@@ -83,11 +85,13 @@ public class SnowHouse extends SettingsPreferenceFragment implements
             public void onNavigationChanged(View view, int position) {
                 if (view.getId() == R.id.status_bar_category) {
                     viewPager.setCurrentItem(position, true);
+                } else if (view.getId() == R.id.notifications_panel_category) {
+                    viewPager.setCurrentItem(position, true);
                 } else if (view.getId() == R.id.lockscreen_category) {
                     viewPager.setCurrentItem(position, true);
                 } else if (view.getId() == R.id.system_category) {
                     viewPager.setCurrentItem(position, true);
-                } else if (view.getId() == R.id.hardware_category) {
+                } else if (view.getId() == R.id.themes_category) {
                     viewPager.setCurrentItem(position, true);
                 }
             }
@@ -120,10 +124,11 @@ public class SnowHouse extends SettingsPreferenceFragment implements
 
         PagerAdapter(FragmentManager fm) {
             super(fm);
-            frags[0] = new StatusBar();
-            frags[1] = new Lockscreen();
-            frags[2] = new System();
-            frags[3] = new Hardware();
+            frags[0] = new Themes();
+            frags[1] = new StatusBar();
+	        frags[2] = new NotificationsPanel();
+            frags[3] = new Lockscreen();
+            frags[4] = new System();
         }
 
         @Override
@@ -144,11 +149,12 @@ public class SnowHouse extends SettingsPreferenceFragment implements
 
     private String[] getTitles() {
         String titleString[];
-        titleString = new String[]{
-            getString(R.string.status_bar_category),
-            getString(R.string.lockscreen_category),
-            getString(R.string.system_category),
-            getString(R.string.hardware_category)};
+        titleString = new String[] {
+                getString(R.string.themes_category),
+                getString(R.string.status_bar_category),
+                getString(R.string.notifications_panel_category),
+                getString(R.string.lockscreen_category),
+                getString(R.string.system_category)};
 
         return titleString;
     }
@@ -198,8 +204,8 @@ public class SnowHouse extends SettingsPreferenceFragment implements
             case MENU_HELP:
                 showDialogInner(MENU_HELP);
                 Toast.makeText(getActivity(),
-                (R.string.extensions_dialog_toast),
-                Toast.LENGTH_LONG).show();
+                        (R.string.extensions_dialog_toast),
+                        Toast.LENGTH_LONG).show();
                 return true;
             default:
                 return false;
@@ -227,15 +233,15 @@ public class SnowHouse extends SettingsPreferenceFragment implements
             switch (id) {
                 case MENU_HELP:
                     return new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.extensions_dialog_title)
-                    .setMessage(R.string.extensions_dialog_message)
-                    .setCancelable(false)
-                    .setNegativeButton(R.string.dlg_ok,
-                        new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int which) {
-                        }
-                    })
-                    .create();
+                            .setTitle(R.string.extensions_dialog_title)
+                            .setMessage(R.string.extensions_dialog_message)
+                            .setCancelable(false)
+                            .setNegativeButton(R.string.dlg_ok,
+                                    new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialog, int which) {
+                                        }
+                                    })
+                            .create();
             }
             throw new IllegalArgumentException("unknown id " + id);
         }
@@ -246,4 +252,3 @@ public class SnowHouse extends SettingsPreferenceFragment implements
         }
     }
 }
-

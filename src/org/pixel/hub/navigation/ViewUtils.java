@@ -1,4 +1,4 @@
-package org.pixelextended.snowhouse.navigation;
+package org.pixel.hub.navigation;
 
 import android.content.Context;
 import android.graphics.PorterDuff;
